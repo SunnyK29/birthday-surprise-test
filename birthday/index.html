@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Happy Birthday! 🎉</title>
+  <meta name="description" content="A little birthday surprise made just for you. Open it and let the celebration begin 🎂">
+  <link rel="icon" href="favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Shantell+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- SVG icons (Lucide), reused with <use> -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-cake" viewBox="0 0 24 24"><path d="M20 21v-8a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8"/><path d="M4 16s.5-1 2-1 2.5 2 4 2 2.5-2 4-2 2.5 2 4 2 2-1 2-1"/><path d="M2 21h20"/><path d="M7 8v3"/><path d="M12 8v3"/><path d="M17 8v3"/><path d="M7 4h.01"/><path d="M12 4h.01"/><path d="M17 4h.01"/></symbol>
+  <symbol id="i-gift" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13"/><path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5A4.8 8 0 0 1 12 8a4.8 8 0 0 1 4.5-5 2.5 2.5 0 0 1 0 5"/></symbol>
+  <symbol id="i-party" viewBox="0 0 24 24"><path d="M5.8 11.3 2 22l10.7-3.79"/><path d="M4 3h.01"/><path d="M22 8h.01"/><path d="M15 2h.01"/><path d="M22 20h.01"/><path d="m22 2-2.24.75a2.9 2.9 0 0 0-1.96 3.12c.1.86-.57 1.63-1.45 1.63h-.38c-.86 0-1.6.6-1.76 1.44L14 10"/><path d="m22 13-.82-.33c-.86-.34-1.82.2-1.98 1.11c-.11.7-.72 1.22-1.43 1.22H17"/><path d="m11 2 .33.82c.34.86-.2 1.82-1.11 1.98C9.52 4.9 9 5.52 9 6.23V7"/><path d="M11 13c1.93 1.93 2.83 4.17 2 5-.83.83-3.07-.07-5-2-1.93-1.93-2.83-4.17-2-5 .83-.83 3.07.07 5 2Z"/></symbol>
+  <symbol id="i-sparkles" viewBox="0 0 24 24"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/><path d="M20 3v4"/><path d="M22 5h-4"/><path d="M4 17v2"/><path d="M5 18H3"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol>
+  <symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></symbol>
+</svg>
+
+<div class="app">
+  <!-- soft glowing background blobs -->
+  <div class="glow g1"></div>
+  <div class="glow g2"></div>
+  <div class="glow g3"></div>
+
+  <!-- ============ SCREEN 1: LOADER ============ -->
+  <section class="screen active" id="screen-loader">
+    <div class="center-box">
+      <div class="loader-icon-wrap">
+        <div class="wobble" style="--wd:3s; --wr:5deg; --ws:1.1">
+          <svg class="icon c-accent-400 icon-xxl"><use href="#i-cake"/></svg>
+        </div>
+        <div class="orbit" style="--od:0s"><svg class="icon sparkle-sm c-yellow-300" style="left:85%; top:50%"><use href="#i-sparkles"/></svg></div>
+        <div class="orbit" style="--od:.5s"><svg class="icon sparkle-sm c-yellow-300" style="left:50%; top:85%"><use href="#i-sparkles"/></svg></div>
+        <div class="orbit" style="--od:1s"><svg class="icon sparkle-sm c-yellow-300" style="left:15%; top:50%"><use href="#i-sparkles"/></svg></div>
+        <div class="orbit" style="--od:1.5s"><svg class="icon sparkle-sm c-yellow-300" style="left:50%; top:15%"><use href="#i-sparkles"/></svg></div>
+      </div>
+
+      <div class="space-8">
+        <div class="space-4">
+          <h1 class="grad-3 t-4xl py-1">Getting the Party Ready</h1>
+          <p class="t-lg c-accent-200 tracking-wide breathe" style="--bmin:.5; --bmax:1; --bd:2.5s">Blowing up balloons & lighting candles ...<span class="c-accent-100">🎈</span></p>
+        </div>
+        <div class="space-4">
+          <div class="progress"><div class="progress-fill" id="progress-fill"><div class="progress-shine"></div></div></div>
+          <p class="t-lg c-accent-300 font-medium tracking-wider" id="progress-text">0%</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SCREEN 2: SECRET CODE ============ -->
+  <section class="screen" id="screen-secretCode">
+    <div class="w-md">
+      <div class="glass glass-p8" id="code-card">
+        <div class="relative-z text-center space-8">
+          <div class="space-6">
+            <div class="wobble" style="--wd:4s; --wr:5deg; --ws:1.05; position:relative">
+              <svg class="icon lock-icon c-accent-400"><use href="#i-lock"/></svg>
+              <div class="pop-sparkle" style="--pd:0s; left:80%; top:50%"><svg class="icon sparkle-sm c-yellow-300"><use href="#i-sparkles"/></svg></div>
+              <div class="pop-sparkle" style="--pd:.5s; left:50%; top:80%"><svg class="icon sparkle-sm c-yellow-300"><use href="#i-sparkles"/></svg></div>
+              <div class="pop-sparkle" style="--pd:1s; left:20%; top:50%"><svg class="icon sparkle-sm c-yellow-300"><use href="#i-sparkles"/></svg></div>
+              <div class="pop-sparkle" style="--pd:1.5s; left:50%; top:20%"><svg class="icon sparkle-sm c-yellow-300"><use href="#i-sparkles"/></svg></div>
+            </div>
+
+            <div class="space-3">
+              <h2 class="grad-2 t-3xl">Party Gateway</h2>
+              <p class="t-lg c-accent-200 breathe" style="--bmin:.7; --bmax:1; --bd:2s">Enter the code to unlock your surprise 🎁</p>
+              <p class="t-sm c-white-50"><span>💡</span>Hint: Your birthday, day &amp; month (DDMM)</p>
+            </div>
+          </div>
+
+          <form id="code-form" class="space-6" autocomplete="off">
+            <input type="text" id="code-input" class="code-input" placeholder="DDMM" maxlength="4" inputmode="numeric" autocomplete="off">
+            <button type="submit" class="btn btn-block btn-lg-r">
+              <span class="btn-inner">
+                <svg class="icon sm-icon"><use href="#i-party"/></svg>
+                Unlock the Party
+                <svg class="icon sm-icon"><use href="#i-party"/></svg>
+              </span>
+              <span class="btn-hover"></span>
+            </button>
+          </form>
+
+          <p class="wrong-msg" id="wrong-msg" hidden>🎈Oops, not quite! Think of your special day</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SCREEN 3: GIFT REVEAL ============ -->
+  <section class="screen reveal" id="screen-giftReveal">
+    <div class="reveal-stage" id="reveal-stage">
+      <!-- left half of the gift -->
+      <div class="half half-l">
+        <svg class="icon c-accent-400 icon-xxxl clip-l"><use href="#i-gift"/></svg>
+        <div class="gift-glow"></div>
+      </div>
+      <!-- right half of the gift -->
+      <div class="half half-r">
+        <svg class="icon c-accent-400 icon-xxxl clip-r"><use href="#i-gift"/></svg>
+      </div>
+      <!-- sparkles & balloons are created by script.js -->
+    </div>
+
+    <div class="reveal-text" id="reveal-text" hidden>
+      <div class="glass-pill">
+        <p class="grad-2 t-3xl bold">Surprise! Although the wish has been made...<span>🎉</span></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SCREEN 4: INTRO ============ -->
+  <section class="screen" id="screen-birthdayIntro">
+    <div class="w-2xl">
+      <div class="glass glass-intro text-center">
+        <div class="relative-z space-8">
+          <div class="wobble" style="--wd:3s; --wr:5deg; --ws:1.05; position:relative">
+            <svg class="icon c-accent-400 icon-xl"><use href="#i-cake"/></svg>
+            <div class="pop-sparkle" style="--pd:0s;   left:85%;  top:50%"><svg class="icon sparkle-sm c-yellow-300"><use href="#i-sparkles"/></svg></div>
+            <div class="pop-sparkle" style="--pd:.3s;  left:67.5%; top:80.3%"><svg class="icon sparkle-sm c-yellow-300"><use href="#i-sparkles"/></svg></div>
+            <div class="pop-sparkle" style="--pd:.6s;  left:32.5%; top:80.3%"><svg class="icon sparkle-sm c-yellow-300"><use href="#i-sparkles"/></svg></div>
+            <div class="pop-sparkle" style="--pd:.9s;  left:15%;  top:50%"><svg class="icon sparkle-sm c-yellow-300"><use href="#i-sparkles"/></svg></div>
+            <div class="pop-sparkle" style="--pd:1.2s; left:32.5%; top:19.7%"><svg class="icon sparkle-sm c-yellow-300"><use href="#i-sparkles"/></svg></div>
+            <div class="pop-sparkle" style="--pd:1.5s; left:67.5%; top:19.7%"><svg class="icon sparkle-sm c-yellow-300"><use href="#i-sparkles"/></svg></div>
+          </div>
+
+          <div class="space-6">
+            <h2 class="grad-2 t-2xl-md4xl bold">Today is all about YOU! 🎂</h2>
+            <p class="c-accent-200 t-base-md-lg leading-relaxed breathe" style="--bmin:.8; --bmax:1; --bd:2s">
+              But Tomorrow There's something Unexpected thing waiting for yaa past these pages
+            </p>
+          </div>
+
+          <button class="btn btn-pill enter-btn" id="btn-show">
+            <span class="btn-inner">
+              <svg class="icon sm-icon"><use href="#i-gift"/></svg>
+              Open my surprise
+              <svg class="icon sm-icon"><use href="#i-gift"/></svg>
+            </span>
+            <span class="btn-hover"></span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SCREEN 5: MESSAGE ============ -->
+  <section class="screen msg-screen" id="screen-message">
+    <div class="msg-wrap" id="msg-wrap">
+      <div class="glass msg-card">
+        <div class="text-center mb-6">
+          <div class="wobble" style="--wd:3s; --wr:10deg; --ws:1.1">
+            <svg class="icon c-accent-400 icon-msg"><use href="#i-party"/></svg>
+          </div>
+        </div>
+        <div class="msg-scroll" id="msg-scroll">
+          <pre class="msg-text" id="msg-text"></pre>
+        </div>
+      </div>
+
+      <div class="text-center mt-8 msg-btn-wrap" id="msg-btn-wrap" hidden>
+        <button class="btn btn-pill msg-btn" id="btn-memories">
+          <span class="btn-inner" style="gap:.5rem">
+            <svg class="icon sm-icon-r"><use href="#i-sparkles"/></svg>
+            Read My Apology 💌
+            <svg class="icon sm-icon-r"><use href="#i-arrow-right"/></svg>
+          </span>
+          <span class="btn-hover"></span>
+        </button>
+      <p class="gallery-thanks">Thank you for being you. Happy Birthday! 🎂</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- watermark from the original design (delete this line to remove it) -->
+  <div class="watermark">@anujbuilds</div>
+</div>
+
+  <!-- Scheduled apology-page lock popup -->
+  <div class="release-modal" id="release-modal" hidden>
+    <div class="release-backdrop" data-close-release></div>
+    <section class="release-dialog" role="dialog" aria-modal="true" aria-labelledby="release-title" aria-describedby="release-description">
+      <button class="release-close" id="release-close" type="button" aria-label="Close popup">×</button>
+      <div class="release-emoji" aria-hidden="true">🔒💌</div>
+      <h2 id="release-title">A little more patience…</h2>
+      <p id="release-description">My apology page is still locked. It will open on <strong>18 October 2026 at 10:00 PM IST</strong>.</p>
+      <p class="release-small" id="release-status">No amount of button-spamming can open it early. Come back after the time above. 💗</p>
+      <button class="release-ok" id="release-ok" type="button">Okay, I’ll wait 💗</button>
+    </section>
+  </div>
+
+<script src="script.js"></script>
+</body>
+</html>

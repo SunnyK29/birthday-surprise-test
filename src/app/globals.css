@@ -1,0 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap');
+
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #8D6E63;
+  --border: #c46987;
+  --font-caveat: 'Caveat', cursive;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-border: var(--border);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --font-caveat: var(--font-caveat);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+}
+
+button {
+  cursor: pointer;
+}
+
+::-webkit-scrollbar{
+  display: none;
+}
