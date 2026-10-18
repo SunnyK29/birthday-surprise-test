@@ -1,0 +1,102 @@
+name: Build and deploy the surprise journey
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+  schedule:
+    # 16:30 UTC = 10:00 PM IST on 18 October (GitHub may start this a little late).
+    - cron: '30 16 18 10 *'
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Check out the single repository
+        uses: actions/checkout@v4
+
+      - name: Determine whether the Sorry page can be released
+        id: release-check
+        shell: bash
+        run: |
+          RELEASE_EPOCH=$(date -u -d '2026-10-18 16:30:00' +%s)
+          NOW_EPOCH=$(date -u +%s)
+          if [ "$NOW_EPOCH" -ge "$RELEASE_EPOCH" ]; then
+            echo "ready=true" >> "$GITHUB_OUTPUT"
+            echo "The release deadline has passed."
+          else
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+            echo "The Sorry page will not be included before the release deadline."
+          fi
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Build the Next.js main surprise page and assemble birthday site
+        shell: bash
+        run: |
+          set -euo pipefail
+          REPO_NAME="${GITHUB_REPOSITORY#*/}"
+          OWNER="${GITHUB_REPOSITORY%%/*}"
+          if [ "$REPO_NAME" = "$OWNER.github.io" ]; then
+            BASE_PATH=""
+          else
+            BASE_PATH="/$REPO_NAME"
+          fi
+          echo "NEXT_PUBLIC_BASE_PATH=$BASE_PATH" >> "$GITHUB_ENV"
+          export NEXT_PUBLIC_BASE_PATH="$BASE_PATH"
+
+          npm ci
+          npm run build
+
+          # Add the standalone birthday website beside the exported Next.js main page.
+          mkdir -p out/birthday
+          cp -a birthday/. out/birthday/
+          touch out/.nojekyll
+
+      - name: Decrypt and publish the Sorry page after the deadline
+        if: steps.release-check.outputs.ready == 'true'
+        env:
+          SORRY_DECRYPTION_KEY: ${{ secrets.SORRY_DECRYPTION_KEY }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ -z "${SORRY_DECRYPTION_KEY:-}" ]; then
+            echo "::error::Add SORRY_DECRYPTION_KEY in Settings > Secrets and variables > Actions."
+            exit 1
+          fi
+          openssl enc -d -aes-256-cbc -pbkdf2 -iter 200000 \
+            -in private/sorry-site.tar.gz.enc \
+            -out /tmp/sorry-site.tar.gz \
+            -pass env:SORRY_DECRYPTION_KEY
+          mkdir -p out/sorry
+          tar -xzf /tmp/sorry-site.tar.gz -C out/sorry
+          test -f out/sorry/index.html
+          echo "Sorry page decrypted and included in this deployment."
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: out
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
